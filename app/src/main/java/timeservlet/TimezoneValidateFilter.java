@@ -8,18 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(value = "/*")
+@WebFilter(value = "/time/*")
 public class TimezoneValidateFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+
+        if (!req.getParameterMap().containsKey("timezone")) {
+            chain.doFilter(req, res);
+        }
 
         if (req.getParameterMap().containsKey("timezone")) {
             String utc = req.getParameter("timezone").replace(" ", "+");
             if (utc.equals("UTC+2") || utc.equals("UTC+1")) {
                 chain.doFilter(req, res);
             } else {
-                res.sendError(400, "Invalid timezone");
+                res.sendError(400, req.getPathInfo());
             }
         }
     }
