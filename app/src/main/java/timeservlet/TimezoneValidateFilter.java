@@ -52,7 +52,7 @@ public class TimezoneValidateFilter extends HttpFilter {
             if (timeZones.contains(utc)) {
                 chain.doFilter(req, res);
             } else {
-                res.sendError(400, req.getPathInfo());
+                res.sendError(400, "Invalid timezone");
             }
         }
     }
