@@ -16,12 +16,11 @@ public class TimezoneValidateFilter extends HttpFilter {
 
         if (req.getParameterMap().containsKey("timezone")) {
             String utc = req.getParameter("timezone").replace(" ", "+");
-            if (utc.equals("UTC+2")) {
+            if (utc.equals("UTC+2") || utc.equals("UTC+1")) {
                 chain.doFilter(req, res);
             } else {
                 res.sendError(400, "Invalid timezone");
             }
         }
-        chain.doFilter(req, res);
     }
 }
