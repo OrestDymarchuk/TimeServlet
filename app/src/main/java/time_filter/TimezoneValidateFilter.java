@@ -1,4 +1,4 @@
-package timeservlet;
+package time_filter;
 
 import timezone.TimeZone;
 
