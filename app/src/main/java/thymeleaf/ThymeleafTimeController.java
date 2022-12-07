@@ -57,6 +57,7 @@ public class ThymeleafTimeController extends HttpServlet {
 
             Cookie lastTimezone = new Cookie("lastTimezone", utc);
             response.addCookie(lastTimezone);
+            lastTimezone.setMaxAge(60*60);
 
             return dateTimeFormatter.format(zoneId) + " " + utc;
         }
